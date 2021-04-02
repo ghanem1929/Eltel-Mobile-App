@@ -1,6 +1,12 @@
 import { Button } from "native-base";
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { s, vs, ms, mvs } from 'react-native-size-matters';
+import { ScaledSheet } from 'react-native-size-matters';
 import { DataTable, DataTableCell, DataTableRow, DataTablePagination } from 'material-bread';
-import React from "react";
+import React from 'react';
+import Tab from '../eltel/teesst'
+
+
 import {
   View,
   Text,
@@ -23,9 +29,10 @@ export default class FactureComponent extends React.Component {
     Reste: "",
     Taux: "",
     Data: [],
-    page: 0,
-    perPage: 2,
+    page:1,
+    perPage: 3,
   };
+  
 
   connectionCheck = () => {
     var Reference = this.state.Reference;
@@ -56,26 +63,25 @@ export default class FactureComponent extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        this.setState({ Data: response });
+        this.setState({ data: response });
       })
       .catch((error) => {
         alert("Error" + error);
       });
   };
 
-  RefSort(){
-     
-  }
   componentDidMount() {
     this.connectionCheck();
   }
   render() {
     return (
       <View style={styles.Container}>
+        
         <View style={styles.Header}>
+        
           <View
             style={{
-              backgroundColor: "#928A97",
+              backgroundColor: "white",
               flexDirection: "row",
               paddingHorizontal: 10,
               paddingVertical: 5,
@@ -83,55 +89,20 @@ export default class FactureComponent extends React.Component {
               width: "90%",
               height: 30,
               borderRadius: 10,
-              backgroundColor: "rgba(52, 52, 52, 0.05)",
+              
             }}
           >
-            <TextInput style={{ width: "90%" }}></TextInput>
+            <TextInput style={{ width: "90%" , backgroundColor:"white" , color: "#250233"}}></TextInput>
             <FontAwesome
               name="search"
               size={20}
-              color="rgba(52, 52, 52, 0.5)"
+              color="#F85F73"
             ></FontAwesome>
           </View>
         </View>
+        <Tab data={this.state.data} />
         <View style={styles.Footer}>
-
-            
-          <DataTable style={styles.tableContainer}>
-            <DataTableRow>
-              <DataTableCell text={'Ref'} type={'header'} borderRight flex={2} />
-              <DataTableCell text={'D_debut'} type={'header'} />
-              <DataTableCell text={'D_fin'} type={'header'} />
-              <DataTableCell text={'Reversement'} type={'header'} />
-              <DataTableCell text={'Reste'} type={'header'} />
-              <DataTableCell text={'Taux'} type={'header'} /> 
-            </DataTableRow>
-            {this.state.Data
-            .slice(
-                this.state.page * this.state.perPage,
-                this.state.page * this.state.perPage + this.state.perPage,
-            )
-            .map((item, index) => (
-            
-                <DataTableRow>
-                    <DataTableCell text={item.Reference}  borderRight flex={2} />
-                    <DataTableCell text={item.Date_debut} />
-                    <DataTableCell text={item.Date_fin} />
-                    <DataTableCell text={item.Reversement} />
-                    <DataTableCell text={item.Reste} />
-                    <DataTableCell text={item.Taux} /> 
-                </DataTableRow>  
-            ))}
-             <DataTablePagination
-            page={this.state.page}
-            numberOfPages={this.state.Data.length / this.state.perPage}
-            numberOfRows={this.state.Data.length}
-            perPage={this.state.perPage}
-            onChangePage={page => this.setState({ page: page })}
-            onChangeRowsPerPage={perPage => this.setState({ perPage: perPage })}
-            possibleNumberPerPage={[2,3,4,5, 6]}
-          />
-          </DataTable>
+        
         </View>
       </View>
     );
@@ -148,17 +119,21 @@ var styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
+    backgroundColor: "#F85F73"
   },
   tableHeader: {
-    height: 50,
-    alignContent: "center",
+    
+    justifyContent:"center" , 
+    alignContent:"center" , 
+    textAlign:"center"
   },
+  
   tableHeaderCell: {
     justifyContent:"center",
-    margin: 5,
+    
   },
   tableRow: {
-    flex: 1,
+    flex: 3,
     flexDirection: "row",
   },
   tableCell: {
@@ -183,3 +158,25 @@ var styles = StyleSheet.create({
     fontSize: 10,
   },
 });
+const styleScale = ScaledSheet.create({
+  tableContainer:{
+    width: '340@s', // = scale(100)
+    height: '200@vs', // = verticalScale(200)
+    padding: '2@msr',
+    margin:'5@s', 
+  },
+  tableHeader:{
+    width: '102@s', // = scale(100)
+    height: '101@vs', // = verticalScale(200)
+    padding: '2@msr', // = Math.round(moderateScale(2))
+  },
+  tableHeaderCell:{
+    flex:3, 
+    width: '50@s',
+    
+  },
+  tableRow:{
+    width:'350@s',
+    height: '60@vs',
+  }
+})
