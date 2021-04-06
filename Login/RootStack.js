@@ -8,6 +8,8 @@ import FactureComponent from "../FactureComponet"
 import CommandeComponent from "../CommandeComponent"
 import StatisticsComponent from "../StatisticsComponent"
 import home from '../home';
+import aboutUs from "../AboutUs";
+import Products from "../Produsts"
 import TestComponent from './TestComponent';
 
 const StackNavigator = createStackNavigator({
@@ -26,6 +28,18 @@ const StackNavigator = createStackNavigator({
     },
     InscriptionScreen: {
         screen: InscriptionComponent,
+        navigationOptions: {
+            headerShown: false
+        }
+    },
+    AboutUsScreen: {
+        screen: aboutUs,
+        navigationOptions: {
+            headerShown: false
+        }
+    },
+    productsScreen: {
+        screen: Products,
         navigationOptions: {
             headerShown: false
         }

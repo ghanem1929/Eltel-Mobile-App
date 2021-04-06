@@ -50,7 +50,7 @@ export default class InscriptionComponent extends Component {
     ) {
       alert("tu dois completé tous les champs ");
     } else {
-      var URL = "http://192.168.1.64:88/api/test.php";
+      var URL = "http://192.168.137.150:88/api/test.php";
       var headers = {
         Accept: "application/json",
         "Content-type": "application.json",
@@ -109,10 +109,10 @@ export default class InscriptionComponent extends Component {
           <Text style={styles.textHeader}>Connecter</Text>
         </View>
         <Animatable.View animation="fadeInUpBig" style={styles.footer}>
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <Text style={styles.emailText}>Nom</Text>
             <View style={styles.action}>
-              <Feather name="user" size={20} color="#240E88" />
+              <Feather name="user" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Nom ..."
@@ -122,7 +122,7 @@ export default class InscriptionComponent extends Component {
             </View>
             <Text style={styles.emailText}>Prenom</Text>
             <View style={styles.action}>
-              <Feather name="user" size={20} color="#240E88" />
+              <Feather name="user" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Prenom ..."
@@ -132,7 +132,7 @@ export default class InscriptionComponent extends Component {
             </View>
             <Text style={styles.emailText}>Societe</Text>
             <View style={styles.action}>
-              <Feather name="users" size={20} color="#240E88" />
+              <Feather name="users" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Societe ..."
@@ -142,7 +142,7 @@ export default class InscriptionComponent extends Component {
             </View>
             <Text style={styles.emailText}>Télephone</Text>
             <View style={styles.action}>
-              <Feather name="smartphone" size={20} color="#240E88" />
+              <Feather name="smartphone" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Télephone ..."
@@ -152,7 +152,7 @@ export default class InscriptionComponent extends Component {
             </View>
             <Text style={styles.emailText}>Adresse</Text>
             <View style={styles.action}>
-              <Feather name="home" size={20} color="#240E88" />
+              <Feather name="home" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Adresse ..."
@@ -162,7 +162,7 @@ export default class InscriptionComponent extends Component {
             </View>
             <Text style={styles.emailText}>Email</Text>
             <View style={styles.action}>
-              <Feather name="user" size={20} color="#240E88" />
+              <Feather name="user" size={20} color="#F85F73" />
 
               <TextInput
                 placeholder="Email ..."
@@ -173,7 +173,7 @@ export default class InscriptionComponent extends Component {
 
             <Text style={styles.M2PText}>Mot de passe</Text>
             <View style={styles.action}>
-              <Feather name="lock" size={20} color="#240E88" />
+              <Feather name="lock" size={20} color="#F85F73" />
               {this.state.secureTextEntry ? (
                 <TextInput
                   placeholder="Mot de passe ..."
@@ -200,15 +200,15 @@ export default class InscriptionComponent extends Component {
               )}
               <TouchableOpacity onPress={() => this.secureTextEntry()}>
                 {this.state.secureTextEntry ? (
-                  <Feather name="eye-off" size={20} color="#240E88" />
+                  <Feather name="eye-off" size={20} color="#F85F73" />
                 ) : (
-                  <Feather name="eye" size={20} color="#240E88" />
+                  <Feather name="eye" size={20} color="#F85F73" />
                 )}
               </TouchableOpacity>
             </View>
             <Text style={styles.M2PText}>Confirmer mot de passe </Text>
             <View style={styles.action}>
-              <Feather name="lock" size={20} color="#240E88" />
+              <Feather name="lock" size={20} color="#F85F73" />
               {this.state.secureTextEntry1 ? (
                 <TextInput
                   placeholder="Confirmer mot de passe .."
@@ -235,9 +235,9 @@ export default class InscriptionComponent extends Component {
               )}
               <TouchableOpacity onPress={() => this.secureTextEntry1()}>
                 {this.state.secureTextEntry1 ? (
-                  <Feather name="eye-off" size={20} color="#240E88" />
+                  <Feather name="eye-off" size={20} color="#F85F73" />
                 ) : (
-                  <Feather name="eye" size={20} color="#240E88" />
+                  <Feather name="eye" size={20} color="#F85F73" />
                 )}
               </TouchableOpacity>
             </View>
@@ -264,7 +264,7 @@ export default class InscriptionComponent extends Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FE346E",
+    backgroundColor: "#F85F73",
   },
   header: {
     flex: 1,
@@ -288,7 +288,7 @@ var styles = StyleSheet.create({
   },
   emailText: {
     marginTop: 30,
-    color: "#FE346E",
+    color: "#F85F73",
     fontSize: 18,
     marginTop: 30,
     fontWeight: "bold",
@@ -306,7 +306,7 @@ var styles = StyleSheet.create({
     paddingVertical: 10,
   },
   M2PText: {
-    color: "#FE346E",
+    color: "#F85F73",
     fontSize: 18,
     marginTop: 30,
     fontWeight: "bold",

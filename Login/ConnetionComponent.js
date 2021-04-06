@@ -10,6 +10,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
+import { FloatingAction } from "react-native-floating-action";
 
 import Feather from "react-native-vector-icons/Feather";
 import * as Animatable from "react-native-animatable";
@@ -32,7 +33,7 @@ export default class ConnetionComponent extends React.Component {
     if (Login.length == 0 || Password.length == 0) {
       alert("tu dois remlpir tous les champs .!");
     } else {
-      var URL = "http://192.168.1.64:88/api/test1.php";
+      var URL = "http://192.168.137.150:88/api/test1.php";
       var header = {
         Accept: "application/json",
         "Content-type": "application.json",
@@ -76,8 +77,21 @@ export default class ConnetionComponent extends React.Component {
   }
 
   render() {
+    const actions = [
+      {
+        text: "produits",
+        name: "productsScreen",
+        position: 1
+      },
+      {
+        text: "A propos",
+        name: "AboutUsScreen",
+        position: 2
+      },
+    ];
     return (
       <View style={styles.container}>
+        
         <View style={styles.header}>
           <Text style={styles.textHeader}>Connecter</Text>
         </View>
@@ -146,7 +160,7 @@ export default class ConnetionComponent extends React.Component {
               style={styles.ConnectionButton}
               onPress={this.connectionCheck}
             >
-              <Text style={{ color: "#FBE8D3" , textAlign:"center" , fontWeight:"bold" ,fontSize:16}}>Connecter</Text>
+              <Text style={{ color: "#FBE8D3" , alignItems:"center", textAlign:"center" , alignContent:"center",fontWeight:"bold" ,fontSize:18 ,height:30 }}>Connecter</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -155,10 +169,25 @@ export default class ConnetionComponent extends React.Component {
                 this.props.navigation.navigate("InscriptionScreen")
               }
             >
-              <Text style={{ color: "#FBE8D3" , textAlign:"center" , fontWeight:"bold" ,fontSize:16}}>Enregistrer</Text>
+              <Text style={{ color: "#FBE8D3" , textAlign:"center" , fontWeight:"bold" ,fontSize:18, height:30 }}>Enregistrer</Text>
             </TouchableOpacity>
+            
           </ScrollView>
+          
         </Animatable.View>
+        <FloatingAction
+            style={styles.Floatingbtn}
+              actions={actions}
+              onPressItem={(name) =>{
+                if (name === "productsScreen"){
+                this.props.navigation.navigate("productsScreen")} else this.props.navigation.navigate("AboutUsScreen")
+              }
+              
+              }
+
+                
+              
+            />
       </View>
     );
   }
@@ -168,6 +197,16 @@ var styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F85F73",
+  },
+  Floatingbtn:{
+    width: 60,  
+    height: 60,   
+    borderRadius: 30,            
+    backgroundColor: "#283C63",                                    
+    position: 'absolute',                                          
+    bottom: 5,                                                    
+    right: 5,
+    
   },
   header: {
     flex: 2,
@@ -181,7 +220,8 @@ var styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingTop: 30,
+    
   },
   textHeader: {
     color: "white",
@@ -220,15 +260,14 @@ var styles = StyleSheet.create({
     backgroundColor: "#F85F73",
     padding: 8,
     borderRadius: 50,
-    textAlign: "center",
-    fontWeight: "bold",
+    alignItems:"center",
   },
   RegisterButton: {
-    marginTop: 35,
+    marginTop: 20,
     backgroundColor: "#250233",
     padding: 8,
     borderRadius: 50,
-    textAlign: "center",
-    fontWeight: "bold",
+    alignItems:"center",
+    marginBottom:60
   },
 });

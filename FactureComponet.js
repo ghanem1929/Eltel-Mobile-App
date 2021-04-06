@@ -42,7 +42,7 @@ export default class FactureComponent extends React.Component {
     var Reste = this.state.Reste;
     var Taux = this.state.Taux;
 
-    var URL = "http://192.168.1.64:88/api/fact.php";
+    var URL = "http://192.168.137.150:88/api/fact.php";
     var header = {
       Accept: 
       "application/json",
@@ -100,7 +100,7 @@ export default class FactureComponent extends React.Component {
             ></FontAwesome>
           </View>
         </View>
-        <Tab data={this.state.data} />
+        <Tab qdata={this.state.data} />
         <View style={styles.Footer}>
         
         </View>

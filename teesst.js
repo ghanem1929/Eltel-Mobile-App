@@ -144,12 +144,12 @@ export default function Tab(props) {
     "Date_debut",
     "Date_fin",
     "Reste",
-    "Reversement",
+    "Reversements",
     "Taux"
   ])
   const [ direction, setDirection ] = useState(null)
   const [ selectedColumn, setSelectedColumn ] = useState(null)
-  const [ data, setData ] = useState(props.data)
+  const [ data, setData ] = useState(props.qdata)
   const sortTable = (column) => {
     const newDirection = direction === "desc" ? "asc" : "desc" 
     const sortedData = _.orderBy(data, [column],[newDirection])
