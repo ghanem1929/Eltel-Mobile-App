@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a3c327e-7832-4661-b602-1f93727f8790" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CommandeComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/CommandeComponent.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FactureComponet.js" beforeDir="false" afterPath="$PROJECT_DIR$/FactureComponet.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login/ConnetionComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Login/ConnetionComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login/InscriptionComponent.js" beforeDir="false" afterPath="$PROJECT_DIR$/Login/InscriptionComponent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Login/RootStack.js" beforeDir="false" afterPath="$PROJECT_DIR$/Login/RootStack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Produsts.js" beforeDir="false" afterPath="$PROJECT_DIR$/Produsts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/teesst.js" beforeDir="false" afterPath="$PROJECT_DIR$/teesst.js" afterDir="false" />
@@ -47,11 +54,11 @@
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state x="1784" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.27.1366.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1616664772300" />
-    <state x="1540" y="140" width="1707" height="880" key="AVDManager" timestamp="1617371878657">
+    <state x="1540" y="140" width="1707" height="880" key="AVDManager" timestamp="1617790602983">
       <screen x="1366" y="0" width="1920" height="1080" />
     </state>
     <state x="83" y="107" width="1215" height="604" key="AVDManager/0.27.1366.741/1366.0.1920.1080@0.27.1366.741" timestamp="1617092841651" />
-    <state x="1540" y="140" width="1707" height="880" key="AVDManager/0.27.1366.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1617371878657" />
+    <state x="1540" y="140" width="1707" height="880" key="AVDManager/0.27.1366.741/1366.0.1920.1080@1366.0.1920.1080" timestamp="1617790602983" />
     <state x="347" y="174" key="run.anything.popup" timestamp="1617092824140">
       <screen x="0" y="27" width="1366" height="741" />
     </state>

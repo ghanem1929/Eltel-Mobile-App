@@ -1,75 +1,42 @@
-import {createAppContainer} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-
-
-import ConnetionComponent from"./ConnetionComponent";
-import InscriptionComponent from"../Login/InscriptionComponent";
-import FactureComponent from "../FactureComponet"
-import CommandeComponent from "../CommandeComponent"
-import StatisticsComponent from "../StatisticsComponent"
-import home from '../home';
+import * as React from "react";
+import { View, Text } from "react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ConnetionComponent from "./ConnetionComponent";
+import Inscription from "../Login/InscriptionComponent";
+import FactureComponent from "../FactureComponet";
+import StatisticsComponent from "../StatisticsComponent";
+import home from "../home";
 import aboutUs from "../AboutUs";
-import Products from "../Produsts"
-import TestComponent from './TestComponent';
+import Products from "../Produsts";
+import SplashScreen from "./Splash";
+import Commande from "../CommandeComponent";
+import CommandeForm from "../CommandeForm";
+import Connection from "./connection";
 
-const StackNavigator = createStackNavigator({
-    
-   /* TestScreen: {
-        screen: TestComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },*/
-    ConnectionScreen: {
-        screen: ConnetionComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    InscriptionScreen: {
-        screen: InscriptionComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    AboutUsScreen: {
-        screen: aboutUs,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    productsScreen: {
-        screen: Products,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    homeScreen: {
-        screen: home ,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    FactureScreen: {
-        screen: FactureComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    CommandeScreen: {
-        screen: CommandeComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-    StatisticsScreen: {
-        screen: StatisticsComponent,
-        navigationOptions: {
-            headerShown: false
-        }
-    },
-   
-    
-    
-});
-export default createAppContainer(StackNavigator);
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        {/*<Stack.Screen name="splash" component={SplashScreen} />*/}
+        <Stack.Screen name="connection" component={Connection} />
+        <Stack.Screen name="Inscription" component={Inscription} />
+        <Stack.Screen name="about" component={aboutUs} />
+        <Stack.Screen name="Products" component={Products} />
+        <Stack.Screen name="home" component={home} />
+        <Stack.Screen name="CommandeForm" component={CommandeForm} />
+        <Stack.Screen name="Facture" component={FactureComponent} />
+        <Stack.Screen name="Commande" component={Commande} />
+        <Stack.Screen name="Statistics" component={StatisticsComponent} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;

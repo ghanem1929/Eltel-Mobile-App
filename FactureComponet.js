@@ -1,11 +1,10 @@
 import { Button } from "native-base";
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import { s, vs, ms, mvs } from 'react-native-size-matters';
-import { ScaledSheet } from 'react-native-size-matters';
-import { DataTable, DataTableCell, DataTableRow, DataTablePagination } from 'material-bread';
-import React from 'react';
-import Tab from '../eltel/teesst'
-
+import { scale, verticalScale, moderateScale } from "react-native-size-matters";
+import { s, vs, ms, mvs } from "react-native-size-matters";
+import { ScaledSheet } from "react-native-size-matters";
+import React, { useState, useEffect } from 'react';
+import { DataTable } from "react-native-paper";
+import { StatusBar } from "expo-status-bar";
 
 import {
   View,
@@ -17,35 +16,25 @@ import {
 } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default class FactureComponent extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    Reference: "",
-    Date_debut: "",
-    Date_fin: "",
-    Reversement: "",
-    Reste: "",
-    Taux: "",
-    Data: [],
-    page:1,
-    perPage: 3,
-  };
-  
 
-  connectionCheck = () => {
-    var Reference = this.state.Reference;
-    var Date_debut = this.state.Date_debut;
-    var Date_fin = this.state.Date_fin;
-    var Reversement = this.state.Reversement;
-    var Reste = this.state.Reste;
-    var Taux = this.state.Taux;
 
-    var URL = "http://192.168.137.150:88/api/fact.php";
+function FactureComponent() {
+  const [Date_debut, setDate_debut] = useState("");
+  const [Date_fin, setDate_fin] = useState("");
+  const [Reference, setReference] = useState("");
+  const [Reversement, setReversement] = useState("");
+  const [Reste, setReste] = useState("");
+  const [Taux, setTaux] = useState("");
+  const [domain_uuid, setdomain_uuid] = useState("");
+  const [page, setpage] = useState("");
+  const [perPage, setperPage] = useState("");
+ var Data=[]
+    
+  const getFactData = () => {
+
+    var URL = "http://192.168.1.67:88/api/fact.php";
     var header = {
-      Accept: 
-      "application/json",
+      Accept: "application/json",
       "Content-type": "application.json",
     };
     var data = {
@@ -55,6 +44,7 @@ export default class FactureComponent extends React.Component {
       Reversement: Reversement,
       Reste: Reste,
       Taux: Taux,
+      domain_uuid: domain_uuid,
     };
     fetch(URL, {
       method: "POST",
@@ -63,22 +53,22 @@ export default class FactureComponent extends React.Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        this.setState({ data: response });
+        Data = response ;
+        console.log(response[0].Reference)
       })
       .catch((error) => {
         alert("Error" + error);
       });
   };
 
-  componentDidMount() {
-    this.connectionCheck();
-  }
-  render() {
+  useEffect(() => {
+    getFactData
+  }, [])
+  
+  
     return (
       <View style={styles.Container}>
-        
         <View style={styles.Header}>
-        
           <View
             style={{
               backgroundColor: "white",
@@ -89,26 +79,110 @@ export default class FactureComponent extends React.Component {
               width: "90%",
               height: 30,
               borderRadius: 10,
-              
             }}
           >
-            <TextInput style={{ width: "90%" , backgroundColor:"white" , color: "#250233"}}></TextInput>
-            <FontAwesome
-              name="search"
-              size={20}
-              color="#F85F73"
-            ></FontAwesome>
+            <TextInput
+              style={{
+                width: "90%",
+                backgroundColor: "white",
+                color: "#250233",
+              }}
+            ></TextInput>
+            <FontAwesome name="search" size={20} color="#F85F73"></FontAwesome>
           </View>
         </View>
-        <Tab qdata={this.state.data} />
-        <View style={styles.Footer}>
-        
+        <View style={styles.container}>
+          <Text></Text>
+
+          <DataTable style={styles.tableContainer}>
+            <DataTable.Header style={styles.Rows}>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>Ref</Text>
+              </DataTable.Title>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>D_debut</Text>
+              </DataTable.Title>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>D_fin</Text>
+              </DataTable.Title>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>Reversement</Text>
+              </DataTable.Title>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>Reste</Text>
+              </DataTable.Title>
+              <DataTable.Title
+                type={"header"}
+                style={styles.tableHeaderCell}
+              >
+                <Text style={{ fontSize: 14 }}>Taux</Text>
+              </DataTable.Title>
+            </DataTable.Header>
+            {Data.slice(
+              page * perPage,
+              page * perPage + perPage
+            ).map((row) => (
+              <DataTable.Row key={row.Reference} style={styles.Rows}>
+                <DataTable.Cell borderRight style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Reference}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Date_debut}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Date_fin}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Reversement}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Reste}</Text>
+                </DataTable.Cell>
+                <DataTable.Cell style={styles.tableCell}>
+                  <Text style={{fontSize:12}}>{row.Taux}</Text>
+                </DataTable.Cell>
+              </DataTable.Row>
+            ))}
+            <DataTable.Pagination
+              page={page}
+              numberOfPages={Data.length / perPage}
+              numberOfRows={Data.length}
+              perPage={perPage}
+              onPageChange={(page) => setpage(page)}
+              onChangeRowsPerPage={(perPage) =>
+                 setperPage(perPage)  
+              }
+              
+            />
+          </DataTable>
         </View>
+        <View style={styles.Footer}></View>
       </View>
     );
-  }
 }
+export default FactureComponent;
 var styles = StyleSheet.create({
+  tableContainer:{
+    justifyContent:"center",
+    margin:0,
+    padding:0,
+    //backgroundColor:'green'
+  },
   Container: {
     flex: 1,
     flexDirection: "column",
@@ -119,27 +193,23 @@ var styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     flexDirection: "row",
-    backgroundColor: "#F85F73"
+    backgroundColor: "#F85F73",
   },
   tableHeader: {
-    
-    justifyContent:"center" , 
-    alignContent:"center" , 
-    textAlign:"center"
+    justifyContent: "center",
+    alignContent: "center",
+    textAlign: "center",
   },
-  
+
   tableHeaderCell: {
-    justifyContent:"center",
-    
+    justifyContent: "center",
   },
   tableRow: {
-    flex: 3,
-    flexDirection: "row",
+    marginLeft:0
   },
   tableCell: {
-    justifyContent:"center",
-    margin: 5,
-    color:'rgba(0, 0, 0, 0.87)'
+    justifyContent: "center",
+    color: "rgba(0, 0, 0, 0.87)",
   },
 
   ListFac: {
@@ -158,25 +228,4 @@ var styles = StyleSheet.create({
     fontSize: 10,
   },
 });
-const styleScale = ScaledSheet.create({
-  tableContainer:{
-    width: '340@s', // = scale(100)
-    height: '200@vs', // = verticalScale(200)
-    padding: '2@msr',
-    margin:'5@s', 
-  },
-  tableHeader:{
-    width: '102@s', // = scale(100)
-    height: '101@vs', // = verticalScale(200)
-    padding: '2@msr', // = Math.round(moderateScale(2))
-  },
-  tableHeaderCell:{
-    flex:3, 
-    width: '50@s',
-    
-  },
-  tableRow:{
-    width:'350@s',
-    height: '60@vs',
-  }
-})
+

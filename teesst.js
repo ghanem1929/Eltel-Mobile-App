@@ -131,6 +131,7 @@ export default function Table(){
 }*/
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
+import { DataTable, DataTableCell, DataTableRow, DataTablePagination } from 'material-bread';
 import { StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import _ from "lodash"
@@ -147,10 +148,10 @@ export default function Tab(props) {
     "Reversements",
     "Taux"
   ])
-  const [ direction, setDirection ] = useState(null)
-  const [ selectedColumn, setSelectedColumn ] = useState(null)
-  const [ data, setData ] = useState(props.qdata)
-  const sortTable = (column) => {
+  //const [ direction, setDirection ] = useState(null)
+  //const [ selectedColumn, setSelectedColumn ] = useState(null)
+  //const [ data, setData ] = useState(props.data)
+  /*const sortTable = (column) => {
     const newDirection = direction === "desc" ? "asc" : "desc" 
     const sortedData = _.orderBy(data, [column],[newDirection])
     setSelectedColumn(column)
@@ -177,29 +178,47 @@ export default function Tab(props) {
         })
       }
     </View>
-  )
+  )*/
 
   return (
     <View style={styles.container}>
-      <FlatList 
-        data={data}
-        style={{width:"95%"}}
-        keyExtractor={(item, index) => index+""}
-        ListHeaderComponent={tableHeader}
-        stickyHeaderIndices={[0]}
-        renderItem={({item, index})=> {
-          return (
-            <View style={{...styles.tableRow, backgroundColor: index % 2 == 1 ? "#ab70c2" : "#f8e6ff"}}>
-              <Text style={{...styles.columnRowTxt}}>{item.Reference}</Text>
-              <Text style={styles.columnRowTxt}>{item.Date_debut}</Text>
-              <Text style={styles.columnRowTxt}>{item.Date_fin}</Text>
-              <Text style={styles.columnRowTxt}>{item.Reste}</Text>
-              <Text style={styles.columnRowTxt}>{item.Reversement}</Text>
-              <Text style={styles.columnRowTxt}>{item.Taux}</Text>
-            </View>
-          )
-        }}
-      />
+     
+
+<DataTable style={styles.tableContainer} >
+            <DataTableRow style={styles.tableRow} >
+              <DataTableCell text={'Rewxf'} type={'header'} borderRight style={styles.tableHeaderCell}  />
+              <DataTableCell text={'D_debut'} type={'header'}  style={styles.tableHeaderCell}/>
+              <DataTableCell text={'D_fin'} type={'header'}  style={styles.tableHeaderCell}/>
+              <DataTableCell text={'Reversement'} type={'header'}  style={styles.tableHeaderCell}/>
+              <DataTableCell text={'Reste'} type={'header'}  style={styles.tableHeaderCell}/>
+              <DataTableCell text={'Taux'} type={'header'}  style={styles.tableHeaderCell}/> 
+            </DataTableRow>
+            {this.state.Data
+            .slice(
+                this.state.page * this.state.perPage,
+                this.state.page * this.state.perPage + this.state.perPage,
+            )
+            .map(row => (
+            
+                <DataTableRow key={row.Reference} style={styles.tableRow}>
+                    <DataTableCell text={row.Reference}  borderRight  style={styles.tableCell}/>
+                    <DataTableCell text={row.Date_debut} style={styles.tableCell}/>
+                    <DataTableCell text={row.Date_fin} style={styles.tableCell}/>
+                    <DataTableCell text={row.Reversement} style={styles.tableCell}/>
+                    <DataTableCell text={row.Reste} style={styles.tableCell}/>
+                    <DataTableCell text={row.Taux} style={styles.tableCell}/> 
+                </DataTableRow>  
+            ))}
+             <DataTablePagination
+                page={this.state.page}
+                numberOfPages={this.state.Data.length / this.state.perPage}
+                numberOfRows={this.state.Data.length}
+                perPage={this.state.perPage}
+                onChangePage={page => this.setState({ page: page })}
+                onChangeRowsPerPage={perPage => this.setState({ perPage: perPage })}
+                possibleNumberPerPage={[2,3,4,5,6]}
+            />
+          </DataTable>
       <StatusBar style="auto" />
     </View>
   );

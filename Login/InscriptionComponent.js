@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   TextInput,
@@ -12,10 +12,20 @@ import {
 import Feather from "react-native-vector-icons/Feather";
 import * as Animatable from "react-native-animatable";
 
-export default class InscriptionComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+export default Inscription;
+function Inscription() {
+ 
+  const [Password, setPassword] = useState("")
+  const [M2PC, setM2PC] = useState("")
+  const [Login, setLogin] = useState("")
+  const [Nom, setNom] = useState("")
+  const [Prenom, setPrenom] = useState("")
+  const [Societe, setSociete] = useState("")
+  const [Telephone, setTelephone] = useState("")
+  const [Adresse, setAdresse] = useState("")
+  const [secureTextEntry, setsecureTextEntry] = useState(true)
+  const [secureTextEntry1, setsecureTextEntry1] = useState(true)
+    /*this.state = {
       check_textInputChange: false,
       Password: "", 
       M2PC: "",
@@ -27,17 +37,10 @@ export default class InscriptionComponent extends Component {
       Societe: "",
       Telephone: "",
       Adresse: "",
-    };
-  }
+    };*/
+  
 
-  InsertRecord = () => {
-    var Nom = this.state.Nom;
-    var Prenom = this.state.Prenom;
-    var Societe = this.state.Societe;
-    var Telephone = this.state.Telephone;
-    var Adresse = this.state.Adresse;
-    var Login = this.state.Login;
-    var Password = this.state.Password;
+  const InsertRecord = () => {
 
     if (
       Nom.length == 0 ||
@@ -50,7 +53,7 @@ export default class InscriptionComponent extends Component {
     ) {
       alert("tu dois completé tous les champs ");
     } else {
-      var URL = "http://192.168.137.150:88/api/test.php";
+      var URL = "http://192.168.137.188:88/api/inscrip.php";
       var headers = {
         Accept: "application/json",
         "Content-type": "application.json",
@@ -80,29 +83,16 @@ export default class InscriptionComponent extends Component {
     }
   };
 
-  textInputChange(value) {
-    if (value.length !== 0) {
-      this.setState({
-        check_textInputChange: true,
-      });
-    } else {
-      this.setState({
-        check_textInputChange: false,
-      });
-    }
+  
+  const SecureTextEntry = () => {
+      setsecureTextEntry(!secureTextEntry)
   }
-  secureTextEntry() {
-    this.setState({
-      secureTextEntry: !this.state.secureTextEntry,
-    });
-  }
-  secureTextEntry1() {
-    this.setState({
-      secureTextEntry1: !this.state.secureTextEntry1,
-    });
-  }
+  const SecureTextEntry1 = () => {
+    setsecureTextEntry1(!secureTextEntry1)
+}
+ 
 
-  render() {
+  
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -117,7 +107,7 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Nom ..."
                 style={styles.EmailInput}
-                onChangeText={(Nom) => this.setState({ Nom })}
+                onChangeText={(Nom) => setNom(Nom)}
               />
             </View>
             <Text style={styles.emailText}>Prenom</Text>
@@ -127,7 +117,7 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Prenom ..."
                 style={styles.EmailInput}
-                onChangeText={(Prenom) => this.setState({ Prenom })}
+                onChangeText={(Prenom) => setPrenom(Prenom)}
               />
             </View>
             <Text style={styles.emailText}>Societe</Text>
@@ -137,7 +127,7 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Societe ..."
                 style={styles.EmailInput}
-                onChangeText={(Societe) => this.setState({ Societe })}
+                onChangeText={(Societe) => setSociete(Societe)}
               />
             </View>
             <Text style={styles.emailText}>Télephone</Text>
@@ -147,7 +137,7 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Télephone ..."
                 style={styles.EmailInput}
-                onChangeText={(Telephone) => this.setState({ Telephone })}
+                onChangeText={(Telephone) => setTelephone(Telephone)}
               />
             </View>
             <Text style={styles.emailText}>Adresse</Text>
@@ -157,7 +147,7 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Adresse ..."
                 style={styles.EmailInput}
-                onChangeText={(Adresse) => this.setState({ Adresse })}
+                onChangeText={(Adresse) => setAdresse(Adresse)}
               />
             </View>
             <Text style={styles.emailText}>Email</Text>
@@ -167,39 +157,31 @@ export default class InscriptionComponent extends Component {
               <TextInput
                 placeholder="Email ..."
                 style={styles.EmailInput}
-                onChangeText={(Login) => this.setState({ Login })}
+                onChangeText={(Login) => setLogin(Login)}
               />
             </View>
 
             <Text style={styles.M2PText}>Mot de passe</Text>
             <View style={styles.action}>
               <Feather name="lock" size={20} color="#F85F73" />
-              {this.state.secureTextEntry ? (
+              {secureTextEntry ? (
                 <TextInput
                   placeholder="Mot de passe ..."
                   secureTextEntry={true}
                   style={styles.EmailInput}
-                  value={this.state.Password}
-                  onChangeText={(text) =>
-                    this.setState({
-                      Password: text,
-                    })
-                  }
+                  value={Password}
+                  onChangeText={(text) =>setPassword(text)}
                 />
               ) : (
                 <TextInput
                   placeholder="Mot de passe ..."
                   style={styles.EmailInput}
-                  value={this.state.Password}
-                  onChangeText={(text) =>
-                    this.setState({
-                      Password: text,
-                    })
-                  }
+                  value={Password}
+                  onChangeText={(text) =>setPassword(text)}
                 />
               )}
-              <TouchableOpacity onPress={() => this.secureTextEntry()}>
-                {this.state.secureTextEntry ? (
+              <TouchableOpacity onPress={() => SecureTextEntry()}>
+                {secureTextEntry ? (
                   <Feather name="eye-off" size={20} color="#F85F73" />
                 ) : (
                   <Feather name="eye" size={20} color="#F85F73" />
@@ -209,39 +191,31 @@ export default class InscriptionComponent extends Component {
             <Text style={styles.M2PText}>Confirmer mot de passe </Text>
             <View style={styles.action}>
               <Feather name="lock" size={20} color="#F85F73" />
-              {this.state.secureTextEntry1 ? (
+              {secureTextEntry1 ? (
                 <TextInput
                   placeholder="Confirmer mot de passe .."
                   secureTextEntry={true}
                   style={styles.EmailInput}
-                  value={this.state.M2PC}
-                  onChangeText={(text) =>
-                    this.setState({
-                      M2PC: text,
-                    })
-                  }
+                  value={M2PC}
+                  onChangeText={(text) =>setM2PC(text)}
                 />
               ) : (
                 <TextInput
                   placeholder="Confirmer mot de passe .."
                   style={styles.EmailInput}
-                  value={this.state.M2PC}
-                  onChangeText={(text) =>
-                    this.setState({
-                      M2PC: text,
-                    })
-                  }
+                  value={M2PC}
+                  onChangeText={(text) =>setM2PC(text)}
                 />
               )}
-              <TouchableOpacity onPress={() => this.secureTextEntry1()}>
-                {this.state.secureTextEntry1 ? (
+              <TouchableOpacity onPress={() => SecureTextEntry1()}>
+                {secureTextEntry1 ? (
                   <Feather name="eye-off" size={20} color="#F85F73" />
                 ) : (
                   <Feather name="eye" size={20} color="#F85F73" />
                 )}
               </TouchableOpacity>
             </View>
-            {this.state.Password !== this.state.M2PC ? (
+            {Password !== M2PC ? (
               <View>
                 <Text style={styles.textVerify}>Verifier mot de passe</Text>
               </View>
@@ -251,14 +225,13 @@ export default class InscriptionComponent extends Component {
               <Button
                 title="Enregistrer"
                 color="#2C003E"
-                onPress={this.InsertRecord}
+                onPress={InsertRecord}
               />
             </View>
           </ScrollView>
         </Animatable.View>
       </View>
     );
-  }
 }
 
 var styles = StyleSheet.create({
@@ -274,14 +247,14 @@ var styles = StyleSheet.create({
   },
   footer: {
     flex: 3,
-    backgroundColor: "white",
+    backgroundColor: "#FBE8D3",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingHorizontal: 20,
     paddingVertical: 30,
   },
   textHeader: {
-    color: "white",
+    color: "#FBE8D3",
     fontWeight: "bold",
     fontSize: 30,
     textAlign: "center",
