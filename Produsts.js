@@ -4,6 +4,7 @@ import {
   StyleSheet,
   FlatList,
   Image,
+  Alert,
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
@@ -80,7 +81,14 @@ function Products({ navigation, route }) {
                     style={styles.BuyBtn}
                     onPress={() => {
                       if (JSON.stringify(Rmq) === '"1"') {
-                        navigation.navigate("Inscription");
+                        navigation.navigate("Connection");
+                        Alert.alert(
+                          "Avertissement",
+                          "vous devez connecter avant de passer votre commande ..",
+                          [
+                            { text: "OK", onPress: () => console.log("OK Pressed") }
+                          ]
+                        );
                       } else{
                         navigation.navigate("CommandeForm", {
                           ProductName: item.name,

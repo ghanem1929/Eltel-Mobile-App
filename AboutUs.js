@@ -1,16 +1,17 @@
-import React  from 'react';
-import {Text } from "react-native"
+import React from "react";
+import { Text, View } from "react-native";
 
-class aboutUs  extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    render() { 
-        return ( 
-            <Text>about us component ..</Text>
-         );
-    }
+export default function aboutUs() {
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <Text>about us component ..</Text>
+    </View>
+  );
 }
- 
-export default aboutUs ;

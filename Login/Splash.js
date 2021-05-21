@@ -1,5 +1,5 @@
 import {React  , useEffect} from 'react';
-import {Text ,Image ,StyleSheet,View} from "react-native"
+import {Image ,StyleSheet} from "react-native"
 import EltelLogo from '../assets/EltelLogo.png'
 import * as Animatable from "react-native-animatable";
 

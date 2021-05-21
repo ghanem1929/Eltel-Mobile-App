@@ -4,16 +4,17 @@ import Feather from "react-native-vector-icons/Feather";
 import * as Animatable from "react-native-animatable";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import FixedFooter from "./fixedFooter"
 
 function home({ navigation, route }) {
-  const { itemId } = route.params;
+  const { itemId ,uuid } = route.params;
 
   return (
     <View style={styles.Container}>
       <View style={styles.Content}>
         <View style={styles.Rows}>
           <TouchableOpacity onPress={() => navigation.navigate("Facture", {
-                itemId: itemId,
+                uuid: uuid,
               })}>
             <Animatable.View
               animation="fadeInDownBig"
@@ -59,7 +60,7 @@ function home({ navigation, route }) {
               <Text style={styles.TextStatistique}>Statistique</Text>
             </Animatable.View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("TestScreen")}>
+          <TouchableOpacity onPress={() => navigation.navigate("aboutUs")}>
             <Animatable.View
               animation="fadeInUpBig"
               duration={600}

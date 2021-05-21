@@ -18,6 +18,7 @@ function Connection({ navigation }) {
   const [login, setLogin] = useState("");
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   var ID_Client = 0;
+  var domain_uuid=""
   
 
    const connectionCheck =  () => {
@@ -39,6 +40,7 @@ function Connection({ navigation }) {
         Login: login,
         Password: password,
         ID_Client: ID_Client,
+        domain_uuid: domain_uuid
       };
       fetch(URL, {
         method: "POST",
@@ -57,10 +59,13 @@ function Connection({ navigation }) {
             );
           } else {
             ID_Client = response[0].ID_Client;
+            domain_uuid = response[0].domain_uuid
             navigation.navigate("home" , {
               itemId: ID_Client,
+              uuid: domain_uuid
             });
-            console.log("Id changed to ==> " + ID_Client)
+            console.log("Id client ==> " + ID_Client)
+            console.log("domain uuid client ==> " + domain_uuid)
           }
         })
         .catch((error) => {

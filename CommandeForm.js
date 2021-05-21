@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Picker, StyleSheet ,Alert} from "react-native";
+import { View, Text, Picker, StyleSheet, Alert } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 import NumericInput from "react-native-numeric-input";
 import AwesomeAlert from "react-native-awesome-alerts";
 
-export default function CommandeForm({ route, navigation }) {
+function CommandeForm({ route, navigation }) {
   const { ProductName, itemId } = route.params;
   const [Palier, setPalier] = useState("");
   const [Operation, setOperation] = useState("");
   const [offre, setOffre] = useState("");
-  const [Qte, setQte] = useState(0);
+  const [Qte, setQte] = useState(1);
   function formatDate() {
     var d = new Date(),
       month = "" + (d.getMonth() + 1),
@@ -68,7 +68,7 @@ export default function CommandeForm({ route, navigation }) {
       .then((response) => response.json())
       .then((response) => {
         console.log(response[0].Message);
-        Alert.alert("Succées","Votre commande a ete bien enregistrer ..")
+        Alert.alert("Succées", "Votre commande a ete bien enregistrer ..");
         navigation.navigate("Commande");
       })
       .catch((error) => {
@@ -84,62 +84,86 @@ export default function CommandeForm({ route, navigation }) {
       return (
         <View style={styles.form}>
           <Text style={styles.ProductTxt}>{ProductNamec}</Text>
-          <ScrollView 
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start', }}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "flex-start",
+            }}
           >
-            <View style={{justifyContent:'center' ,alignItems:"center" , width:"100%" , margin:5}}>
-            <Text style={styles.attribut}>Palier</Text>
-            <Picker
-              selectedValue={Palier}
-              style={styles.Picker}
-              onValueChange={(itemValue, itemIndex) => setPalier(itemValue)}
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                margin: 5,
+              }}
             >
-              <Picker.Item label="A100" value="A100" />
-              <Picker.Item label="A255" value="A255" />
-              <Picker.Item label="A300" value="A300" />
-              <Picker.Item label="D30" value="D30" />
-              <Picker.Item label="D60" value="D60" />
-              <Picker.Item label="D80" value="D80" />
-            </Picker>
+              <Text style={styles.attribut}>Palier</Text>
+              <Picker
+                selectedValue={Palier}
+                style={styles.Picker}
+                onValueChange={(itemValue, itemIndex) => setPalier(itemValue)}
+              >
+                <Picker.Item label="A100" value="A100" />
+                <Picker.Item label="A255" value="A255" />
+                <Picker.Item label="A300" value="A300" />
+                <Picker.Item label="D30" value="D30" />
+                <Picker.Item label="D60" value="D60" />
+                <Picker.Item label="D80" value="D80" />
+              </Picker>
             </View>
-            <View style={{justifyContent:'center' ,alignItems:"center" , width:"100%" , margin:5}}>
-            <Text style={styles.attribut}>Opération</Text>
-            <Picker
-              selectedValue={Operation}
-              style={styles.Picker}
-              onValueChange={(itemValue, itemIndex) => setOperation(itemValue)}
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                margin: 5,
+              }}
             >
-              <Picker.Item label="Voyance" value="Voyance" />
-              <Picker.Item label="Jeu concour" value="Jeu concour" />
-              <Picker.Item label="Autre" value="Autre" />
-            </Picker>
+              <Text style={styles.attribut}>Opération</Text>
+              <Picker
+                selectedValue={Operation}
+                style={styles.Picker}
+                onValueChange={(itemValue, itemIndex) =>
+                  setOperation(itemValue)
+                }
+              >
+                <Picker.Item label="Voyance" value="Voyance" />
+                <Picker.Item label="Jeu concour" value="Jeu concour" />
+                <Picker.Item label="Autre" value="Autre" />
+              </Picker>
             </View>
-            <View style={{justifyContent:'center' ,alignItems:"center" , width:"100%" , margin:5}}>
-            <Text style={styles.attribut}>Quantité</Text>
-            <NumericInput
-              style={styles.NumInput}
-              value={Qte}
-              onChange={(value) => setQte(value)}
-              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-              totalWidth={150}
-              totalHeight={60}
-              iconSize={24}
-              step={1}
-              minValue={0}
-              maxValue={50}
-              valueType="integer"
-              rounded
-              borderColor="#928A97"
-              textColor="#252D3E"
-              iconStyle={{ color: "#FBE8D3" }}
-              rightButtonBackgroundColor="#F85F73"
-              leftButtonBackgroundColor="#283C63"
-            />
-            </View> 
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                margin: 5,
+              }}
+            >
+              <Text style={styles.attribut}>Quantité</Text>
+              <NumericInput
+                style={styles.NumInput}
+                value={Qte}
+                onChange={(value) => setQte(value)}
+                onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                totalWidth={150}
+                totalHeight={60}
+                iconSize={24}
+                step={1}
+                minValue={1}
+                maxValue={50}
+                valueType="integer"
+                rounded
+                borderColor="#928A97"
+                textColor="#252D3E"
+                iconStyle={{ color: "#FBE8D3" }}
+                rightButtonBackgroundColor="#F85F73"
+                leftButtonBackgroundColor="#283C63"
+              />
+            </View>
           </ScrollView>
-
-          
         </View>
       );
     } else if (
@@ -149,47 +173,62 @@ export default function CommandeForm({ route, navigation }) {
       return (
         <View style={styles.form}>
           <Text style={styles.ProductTxt}>{ProductNamec}</Text>
-          <ScrollView 
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, justifyContent: 'flex-start' }}
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              flexGrow: 1,
+              justifyContent: "flex-start",
+            }}
           >
-          <View style={{justifyContent:'center' ,alignItems:"center" , width:"100%" , margin:5}}>
-            <Text style={styles.attribut}>Offre</Text>
-            <Picker
-              selectedValue={offre}
-              style={styles.Picker}
-              onValueChange={(itemValue, itemIndex) => setOffre(itemValue)}
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                margin: 5,
+              }}
             >
-              <Picker.Item label="Mobile" value="Mobile" />
-              <Picker.Item label="Fixe" value="Fixe" />
-              <Picker.Item label="Fixe-Mobile" value="Fixe-Mobile" />
-            </Picker>
+              <Text style={styles.attribut}>Offre</Text>
+              <Picker
+                selectedValue={offre}
+                style={styles.Picker}
+                onValueChange={(itemValue, itemIndex) => setOffre(itemValue)}
+              >
+                <Picker.Item label="Mobile" value="Mobile" />
+                <Picker.Item label="Fixe" value="Fixe" />
+                <Picker.Item label="Fixe-Mobile" value="Fixe-Mobile" />
+              </Picker>
             </View>
-            <View style={{justifyContent:'center' ,alignItems:"center" , width:"100%" , margin:5}}>
-            <Text style={styles.attribut}>Quantité</Text>
-            <NumericInput
-              style={styles.NumInput}
-              value={Qte}
-              onChange={(value) => setQte(value)}
-              onLimitReached={(isMax, msg) => console.log(isMax, msg)}
-              totalWidth={150}
-              totalHeight={60}
-              iconSize={24}
-              step={1}
-              minValue={0}
-              maxValue={50}
-              valueType="integer"
-              rounded
-              borderColor="#928A97"
-              textColor="#252D3E"
-              iconStyle={{ color: "#FBE8D3" }}
-              rightButtonBackgroundColor="#F85F73"
-              leftButtonBackgroundColor="#283C63"
-            />
+            <View
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                margin: 5,
+              }}
+            >
+              <Text style={styles.attribut}>Quantité</Text>
+              <NumericInput
+                style={styles.NumInput}
+                value={Qte}
+                onChange={(value) => setQte(value)}
+                onLimitReached={(isMax, msg) => console.log(isMax, msg)}
+                totalWidth={150}
+                totalHeight={60}
+                iconSize={24}
+                step={1}
+                minValue={1}
+                maxValue={50}
+                valueType="integer"
+                rounded
+                borderColor="#928A97"
+                textColor="#252D3E"
+                iconStyle={{ color: "#FBE8D3" }}
+                rightButtonBackgroundColor="#F85F73"
+                leftButtonBackgroundColor="#283C63"
+              />
             </View>
-            </ScrollView>
-
-          
+          </ScrollView>
         </View>
       );
     } else if (
@@ -199,9 +238,7 @@ export default function CommandeForm({ route, navigation }) {
       return (
         <View style={styles.form}>
           <Text style={styles.ProductTxt}>{ProductNamec}</Text>
-          <View 
-          style={{ flexGrow: 1, justifyContent: 'flex-start' }}
-          >
+          <View style={{ flexGrow: 1, justifyContent: "flex-start" }}>
             <Text style={styles.attribut}>Quantité</Text>
             <NumericInput
               style={styles.NumInput}
@@ -212,7 +249,7 @@ export default function CommandeForm({ route, navigation }) {
               totalHeight={60}
               iconSize={24}
               step={1}
-              minValue={0}
+              minValue={1}
               maxValue={50}
               valueType="integer"
               rounded
@@ -222,8 +259,7 @@ export default function CommandeForm({ route, navigation }) {
               rightButtonBackgroundColor="#F85F73"
               leftButtonBackgroundColor="#283C63"
             />
-            </View>
-          
+          </View>
         </View>
       );
     }
@@ -244,11 +280,11 @@ export default function CommandeForm({ route, navigation }) {
         <TouchableOpacity style={styles.ConfirmBtn} onPress={InsertCommande}>
           <Text style={styles.confirmTxt}>Confirmer mon panier</Text>
         </TouchableOpacity>
-        {Alerts}
       </View>
     </View>
   );
 }
+export default CommandeForm;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -302,43 +338,41 @@ const styles = StyleSheet.create({
   FormContent: {
     height: "70%",
     width: "100%",
-    backgroundColor:"green",
+    backgroundColor: "green",
     flexDirection: "column",
   },
-  ProductTxt:{
-    position:"relative",
-    fontSize:26,
-    margin:5,
+  ProductTxt: {
+    position: "relative",
+    fontSize: 26,
+    margin: 5,
     backgroundColor: "#283C63",
-    padding:5,
-    borderRadius:10,
-    width:250,
-    alignItems:"center",
-    textAlign:"center",
-    color:"#FBE8D3",
+    padding: 5,
+    borderRadius: 10,
+    width: 250,
+    alignItems: "center",
+    textAlign: "center",
+    color: "#FBE8D3",
+  },
+  attribut: {
+    position: "relative",
+    padding: 5,
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    color: "#252D3E",
+  },
+  Picker: {
+    margin: 5,
+    width: 180,
+    height: 40,
+    color: "#F85F73",
+  },
+  itemStyle: {
+    textAlign: "center",
+  },
 
-  },
-  attribut:{
-    position:"relative",
-    padding:5,
-    fontSize:18,
-    fontWeight:'bold',
-    textAlign:"center",
-    color:"#252D3E"
-  },
-  Picker:{
-    margin:5,
-    width:180,
-    height:40,
-    color:'#F85F73',
-    
-  },
-  itemStyle:{
-    textAlign: 'center',
-  },
-  
-  NumInput:{
-    margin:5
+  NumInput: {
+    margin: 5,
   },
   ConfirmBtn: {
     margin: 20,
@@ -351,7 +385,7 @@ const styles = StyleSheet.create({
   },
   confirmTxt: {
     color: "#FBE8D3",
-    fontSize:18,
+    fontSize: 18,
     fontWeight: "bold",
   },
 });
